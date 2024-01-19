@@ -56,8 +56,8 @@ class Elevator:
     def __init__(self, floors):
         self._verify_floors(floors)
         self.__floors = floors
-        self.__current_floor = 1
-        self.__direction = 'stoped'
+        self.current_floor = 1
+        self.direction = 'stoped'
         self.doors = [Doors(i) for i in range(self.floors)]
         self.floor_buttons = [Button(i) for i in range(self.floors)]
         self.lift_buttons = [Button(i) for i in range(self.floors)]
