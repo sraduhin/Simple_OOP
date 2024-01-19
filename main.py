@@ -16,7 +16,7 @@ class Button:
         return self.__state
 
     @property
-    def _is_active(self):
+    def is_active(self):
         return self.__state is True
 
     def push_the_button(self):
@@ -40,7 +40,7 @@ class Doors:
     def floor(self):
         return self.__floor
 
-    def _open(self):
+    def open(self):
         self.__is_open = True
         print(f"Doors opened on the {self.floor}th floor")
         sleep(self.OPEN_DELAY)
@@ -71,14 +71,13 @@ class Elevator:
         if button not in range(1, self.floors + 1):
             raise ValueError(f"Out of range. Must be in [1, {self.floors}")
 
-
     @property
     def floors(self):
         return self.__floors
 
     @property
     def requested_floors(self):
-        return [button.floor for button in self.floor_buttons if button._is_active]
+        return [button.floor for button in self.floor_buttons if button.is_active]
 
     @property
     def requested_floor(self):
@@ -130,7 +129,6 @@ class Elevator:
             self._verify_manual_input(button)
             self.floor_buttons[button].push_the_button()
 
-
     def start(self):
         while True:
             self.button_handler()
@@ -141,10 +139,10 @@ class Elevator:
                 self._set_direction()
                 self._move(self.direction)
             self.floor_buttons[self.current_floor].push_the_button()
-            self.doors[self.current_floor]._open()
+            self.doors[self.current_floor].open()
 
-floors = int(input("Create an elevator with count of floors: "))
-elevator = Elevator(floors)
+
+num_floors = int(input("Create an elevator with count of floors: "))
+elevator = Elevator(num_floors)
 print(f"You've been create an elevator with {elevator.floors} floors")
 elevator.start()
-sleep(1000)
